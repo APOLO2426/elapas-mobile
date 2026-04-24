@@ -1,10 +1,12 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 
 export default function TabOneScreen() {
   return (
     <View>
-
+      <Text>
+        hello
+      </Text>
     </View>
   );
 }

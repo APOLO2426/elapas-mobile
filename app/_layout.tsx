@@ -62,7 +62,7 @@ function RootLayoutNav() {
         ) : (
           <Stack.Screen name="index" options={{
             headerShadowVisible: false,
-            headerTitle: 'Login',
+            headerTitle: '',
             headerStyle: {
               backgroundColor: colors.background
             }

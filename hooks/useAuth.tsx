@@ -7,7 +7,7 @@ export const useAuth = () => {
     if (!context) {
         return {
             user: null,
-            isAuthenticate: false,
+            isAutheticate: false,
             login: async () => console.warn("login no disponible"),
             logout: async () => console.warn("logout no disponible")
         }
