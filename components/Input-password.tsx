@@ -29,8 +29,8 @@ const InputPassword: FC<Props> = ({ title, palceHodler, value, error, security =
             </Text>
             <View style={[
                 styles.input,
-                { borderColor: colors.accent, },
-                isFocused && { borderColor: colors.accent, },
+                { borderColor: colors.border, },
+                isFocused && { borderColor: colors.border, },
                 !!error && { borderColor: colors.error }
             ]}>
                 <TextInput style={{ color: colors.text, flex: 1 }}

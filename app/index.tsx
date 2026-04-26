@@ -19,17 +19,19 @@ const Login = () => {
     const [security, setSecurity] = useState(true)
     const [isLoading, setIsLoadiong] = useState(false)
     const [error, setError] = useState('')
-
+    //funciones 
     async function handleLogin() {
         setIsLoadiong(true)
         try {
             await login({ email: username, password })
-            router.replace('/(tabs)')
+            router.replace('/(tabs)/resumen')
         } catch (e) {
             setError(String(e))
         }
         finally {
             setIsLoadiong(false)
+            setUsername('')
+            setPassword('')
         }
     }
     return (
@@ -39,15 +41,33 @@ const Login = () => {
             contentContainerStyle={{ flex: 1 }}
             scrollEnabled>
 
-            <View style={[{ backgroundColor: colors.background }, styles.conteiner]}>
+            <View style={[
+                styles.conteiner,
+                { backgroundColor: colors.background }
+            ]}>
 
-                <View style={[styles.card]}>
-                    <View style={{ alignItems: 'center' }}>
-                        <Image source={require('@/assets/images/elapas.png')} />
-                        <Text style={[styles.name, [{ color: colors.text }]]}>
-                            Elapas
-                        </Text>
-                    </View>
+                <View style={{ alignItems: 'center' }}>
+                    <Image source={require('@/assets/images/elapas.png')} />
+                    <Text style={[
+                        styles.name,
+                        { color: colors.text }
+                    ]}>
+                        Elapas
+                    </Text>
+                    <Text style={[
+                        styles.description,
+                        { color: colors.accent }
+                    ]}>
+                        Acceso Brigadista
+                    </Text>
+                </View>
+
+                <View style={[
+                    styles.card,
+                    {
+                        borderColor: colors.border2,
+                    }
+                ]}>
                     <InputComponent
                         title="Email"
                         value={username}
@@ -66,9 +86,10 @@ const Login = () => {
 
                     <ButtonComponent
                         text="Ingresar"
-                        loading={false}
+                        loading={isLoading}
                         onPress={handleLogin}
                         disable={isLoading}
+
                     />
                     {
                         !!error && (
@@ -88,15 +109,16 @@ const styles = StyleSheet.create({
     conteiner: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         paddingHorizontal: 14,
     },
     card: {
+        borderWidth: 0.5,
         width: '100%',
-        backgroundColor: "#FFF",
+        gap: 7,
         borderRadius: 7,
         paddingHorizontal: 20,
-        paddingVertical: 40
+        paddingVertical: 40,
+        marginVertical: 40
     },
     message: {
         padding: 7,
@@ -106,6 +128,10 @@ const styles = StyleSheet.create({
     name: {
         fontWeight: 'bold',
         fontSize: 26
+    },
+    description: {
+        fontWeight: 'medium',
+        fontSize: 20
     }
 })
 

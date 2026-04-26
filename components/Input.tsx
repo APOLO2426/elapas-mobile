@@ -28,8 +28,8 @@ const InputComponent: FC<Props> = ({ title, palceHodler, value, error, onChange 
             <TextInput
                 style={[
                     styles.input,
-                    { borderColor: colors.accent, color: colors.text },
-                    isFocused && { borderColor: colors.accent},
+                    { borderColor: colors.border, color: colors.text },
+                    isFocused && { borderColor: colors.border },
                     !!error && { borderColor: colors.error }
                 ]}
                 onFocus={() => setIsFocused(true)}

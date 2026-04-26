@@ -19,7 +19,7 @@ const ButtonComponent: FC<Props> = ({ text, onPress, loading, disable, style }) 
             disabled={disable || loading}
             style={[
                 styles.body,
-                { backgroundColor: colors.muted },
+                { backgroundColor: colors.accent },
                 style
             ]}
         >
@@ -30,7 +30,7 @@ const ButtonComponent: FC<Props> = ({ text, onPress, loading, disable, style }) 
                     <Text style={
                         [
                             styles.tetx,
-                            { color: "#FFF" }
+                            { color: colors.textDefault }
                         ]
                     }>
                         {text}

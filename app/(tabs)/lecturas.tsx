@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native';
+import DefaultScreen from '@/components/Default-screen';
+import { StyleSheet, Text } from 'react-native';
 
 
 export default function TabOneScreen() {
   return (
-    <View>
+    <DefaultScreen>
       <Text>
-        hello
+        
       </Text>
-    </View>
+    </DefaultScreen>
   );
 }
 
