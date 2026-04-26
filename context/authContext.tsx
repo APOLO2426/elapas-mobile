@@ -1,5 +1,5 @@
 import { Auth, User } from "@/models/auth"
-import { service_login } from "@/services/auth"
+import { service_login, service_logout } from "@/services/auth"
 import { createContext, ReactNode, useState } from "react"
 
 type AuthContextType = {
@@ -25,7 +25,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(data.user)
     }
 
-    const logout = async () => { }
+    const logout = async () => {
+        await service_logout()
+    }
 
     return (
         <AuthContext.Provider value={{

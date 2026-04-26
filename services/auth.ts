@@ -22,4 +22,22 @@ export async function service_login(user_data: Auth) {
     }
 
     return request as ResponseAuth
-} 
+}
+
+
+export async function service_logout() {
+    const request = await fetch('http://192.168.0.12:3000/api/auth/sign-out', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Origin': 'http://localhost:3000'
+        },
+        method: 'POST'
+    })
+
+    const response = await request.json()
+    if (!response.ok) {
+        console.log(response)
+        throw new Error(response)
+    }
+
+}

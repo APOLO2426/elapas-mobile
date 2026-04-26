@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { BookSearch, HouseIcon, ScissorsIcon } from 'lucide-react-native';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -23,20 +24,40 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
       }}>
       <Tabs.Screen
-        name="index"
+        name="lecturas"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Lecturas',
+          headerTitle: 'Registrar lecturas',
+          tabBarIcon: ({ color }) => <BookSearch color={color} />,
           headerRight: () => (<></>),
+          headerStyle: { backgroundColor: colors.border },
+          headerTitleStyle: { color: colors.textDefault }
+
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="resumen"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerTitle: "Resumen",
+          title: 'Resumen',
+          tabBarIcon: ({ color }) => <HouseIcon color={color} />,
+          headerRight: () => (<></>),
+          headerStyle: { backgroundColor: colors.border },
+          headerTitleStyle: { color: colors.textDefault }
         }}
       />
+      <Tabs.Screen
+        name="cortes"
+        options={{
+          headerTitle: "Resgitrar cortes",
+          title: 'Cortes',
+          tabBarIcon: ({ color }) => <ScissorsIcon color={color} />,
+          headerRight: () => (<></>),
+          headerStyle: { backgroundColor: colors.border },
+          headerTitleStyle: { color: colors.textDefault }
+        }}
+      />
+
     </Tabs>
   );
 }

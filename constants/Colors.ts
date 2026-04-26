@@ -1,35 +1,39 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+const tintColorLight = '#0037B0';
+const tintColorDark = '#0037B0';
 
-const PRIMARY = '#9ef5ff8d'
-const SECONDARY = '#00386C'
-const TERCIARY = '#ffffff'
-const NEUTRAL = '#1E293B'
-
+const PRIMARY = '#0037B0'
+const SECONDARY = '#49C7E1'
+const TERTIARY = '#0F172A'
+const NEUTRAL = '#64748B'
+const WHITE = "#ffffff"
 export default {
   light: {
-    text: NEUTRAL,
-    background: '#fdfdfd',
+    text: TERTIARY,
+    textDefault: WHITE,
+    background: WHITE,
     border: PRIMARY,
-    muted: SECONDARY,
-    error: "#ca1717",
-    accent: "#194C7A",
-    icon: SECONDARY,
+    border2: SECONDARY,
+    muted: NEUTRAL,
+    error: "#BA1A1A",
+    accent: PRIMARY,
+    icon: PRIMARY,
     tint: tintColorLight,
-    tabIconDefault: '#ccc',
+    tabIconDefault: NEUTRAL,
     tabIconSelected: tintColorLight,
   },
 
   dark: {
-    text: NEUTRAL,
-    background: '#71a4c5',
+    text: TERTIARY,
+    textDefault: WHITE,
+    background: WHITE,
     border: PRIMARY,
-    muted: SECONDARY,
-    error: "#ca1717",
-    accent: "#194C7A",
-    icon: SECONDARY,
+    border2: SECONDARY,
+    muted: NEUTRAL,
+    error: "#BA1A1A",
+    accent: PRIMARY,
+    icon: PRIMARY,
     tint: tintColorDark,
-    tabIconDefault: '#ccc',
+    tabIconDefault: NEUTRAL,
     tabIconSelected: tintColorDark,
   },
 };
