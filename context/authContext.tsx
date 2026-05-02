@@ -1,9 +1,9 @@
-import { Auth, User } from "@/models/auth"
 import { service_login, service_logout } from "@/services/auth"
+import { Auth, ResponseAuth } from "@/types/auth"
 import { createContext, ReactNode, useState } from "react"
 
 type AuthContextType = {
-    user: User | null
+    user: ResponseAuth | null
     isAuthenticate: boolean
     login: (data_auth: Auth) => Promise<void>
     logout: () => Promise<void>
@@ -18,11 +18,11 @@ export const AuthContext = createContext<AuthContextType>({
 
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<ResponseAuth | null>(null)
 
     const login = async (data_auth: Auth) => {
         const data = await service_login(data_auth)
-        setUser(data.user)
+        setUser(data)
     }
 
     const logout = async () => {
