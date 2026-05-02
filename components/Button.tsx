@@ -25,7 +25,7 @@ const ButtonComponent: FC<Props> = ({ text, onPress, loading, disable, style }) 
         >
             {
                 loading ? (
-                    <ActivityIndicator color={colors.icon} />
+                    <ActivityIndicator color={colors.textDefault} />
                 ) : (
                     <Text style={
                         [
