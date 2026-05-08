@@ -3,7 +3,7 @@ export type Lectura = {
     contratoId: string
     brigadistaId: string
     valorLectura: number
-    fotoUrl: string
+    foto: any
     latitud: string
     longitud: string
     fechaLectura: string

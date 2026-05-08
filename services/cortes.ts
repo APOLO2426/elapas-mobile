@@ -1,9 +1,10 @@
+import { config } from "@/config/apis";
 import { UNAUTHORIZED } from "@/constants/APIErrors";
 import { Corte, CorteCreate } from "@/types/corte";
 
 export async function service_post_cortes(lectura: CorteCreate, token: string): Promise<Corte> {
 
-    const request = await fetch('http://192.168.0.12:3000/api/cortes', {
+    const request = await fetch(`${config.apiUrl}/api/cortes`, {
         headers: {
             'Content-Type': 'application/json',
             'Cookie': `${token}`
