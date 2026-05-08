@@ -3,7 +3,7 @@ export type Corte = {
     contratoId: string,
     brigadistaId: string,
     motivo: string,
-    fotoUrl: string,
+    foto: string,
     latitud: string
     longitud: string
     fechaCorte: string

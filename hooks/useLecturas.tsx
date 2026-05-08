@@ -5,8 +5,8 @@ import { useState } from "react"
 import { useAuth } from "./useAuth"
 import { useLocation } from "./useLocation"
 
-export const useLecturas = () => {
-    const [contratoId, setContratoId] = useState("")
+export const useLecturas = (initialContratoId: string = "") => {
+    const [contratoId, setContratoId] = useState(initialContratoId)
     const [valor, setValor] = useState("")
     const [onModal, setOnModal] = useState(false)
     const [error, setError] = useState("")
@@ -42,7 +42,10 @@ export const useLecturas = () => {
 
     const handleCreateLectura = async () => {
         setLoadiong(true)
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            setLoadiong(false)
+            return;
+        }
         try {
             await service_post_lectura(
                 {
@@ -54,8 +57,11 @@ export const useLecturas = () => {
                 },
                 user?.token || ""
             )
-        } catch (e) {
-            console.error(e)
+            setError("")
+            setOnModal(true)
+        } catch (e: any) {
+            setError(e.message || "Error al registrar la lectura.")
+            setOnModal(true)
         } finally {
             setLoadiong(false)
         }

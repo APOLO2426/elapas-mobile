@@ -14,8 +14,8 @@ const Login = () => {
     const { login } = useAuth()
     const router = useRouter()
     //variables 
-    const [username, setUsername] = useState("admin@elapas.com") 
     // const [username, setUsername] = useState("admin@elapas.com") 
+    const [username, setUsername] = useState("brigadista1@elapas.com") 
     const [password, setPassword] = useState("password123")
     const [security, setSecurity] = useState(true)
     const [isLoading, setIsLoadiong] = useState(false)

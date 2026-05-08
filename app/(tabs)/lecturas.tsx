@@ -1,65 +1,126 @@
-import ButtonComponent from '@/components/Button';
-import { CameraModule } from '@/components/camera';
-import DefaultScreen from '@/components/Default-screen';
-import InputComponent from '@/components/Input';
-import { ModalConfirm } from '@/components/Modal';
-import { useLecturas } from '@/hooks/useLecturas';
-import { useEffect, useState } from 'react';
+import AsignacionCard from "@/components/AsignacionCard";
+import DefaultScreen from "@/components/Default-screen";
+import LecturaForm from "@/components/LecturaForm";
+import { useAuth } from "@/hooks/useAuth";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { service_get_mi_ruta } from "@/services/lecturas";
+import { LecturaRuta } from "@/types/lectura";
+import { useEffect, useState } from "react";
+import {
+   ActivityIndicator,
+   FlatList,
+   StyleSheet,
+   Text,
+   View,
+} from "react-native";
 
-export default function TabOneScreen() {
+export default function LecturasScreen() {
+   const { user } = useAuth();
+   const colors = useThemeColor();
 
-   const { contratoId, valor, capture, error, errors, errorPermission, onModal, loadiong,
-      setCapture, setContratoId, setValor, setError, setOnModal, fetchLocation, handleCreateLectura, setErrors
-   } = useLecturas()
-   const [camera, setCamera] = useState(false)
+   const [asignaciones, setAsignaciones] = useState<LecturaRuta[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+   const [selected, setSelected] = useState<LecturaRuta | null>(null);
 
    useEffect(() => {
-      const handlePruebas = async () => {
-         await fetchLocation();
-      };
-      handlePruebas();
+      fetchRuta();
    }, []);
 
+   const fetchRuta = async () => {
+      if (!user) {
+         setLoading(false);
+         setError("No hay sesión activa.");
+         return;
+      }
+      setLoading(true);
+      setError(null);
+      try {
+         const data = await service_get_mi_ruta(user.token);
+         setAsignaciones(data);
+      } catch (e: any) {
+         console.error("fetchRuta error:", e.message);
+         setError(e.message || "Error al cargar las asignaciones.");
+      } finally {
+         setLoading(false);
+      }
+   };
+
+   // Vista: formulario de lectura
+   if (selected) {
+      return (
+         <DefaultScreen>
+            <LecturaForm
+               asignacion={selected}
+               onBack={() => setSelected(null)}
+            />
+         </DefaultScreen>
+      );
+   }
+
+   // Vista: lista de asignaciones
    return (
       <DefaultScreen>
-         <InputComponent
-            title="Contrato código"
-            value={contratoId}
-            palceHodler="Ingresa el código del contrato"
-            onChange={(text) => {
-               setContratoId(text);
-               if (errors.contratoId) setErrors({ ...errors, contratoId: undefined });
-            }}
-            error={errors.contratoId}
-         />
+         {loading && (
+            <View style={styles.centered}>
+               <ActivityIndicator size="large" color={colors.accent} />
+               <Text style={[styles.loadingText, { color: colors.muted }]}>
+                  Cargando asignaciones...
+               </Text>
+            </View>
+         )}
 
-         <InputComponent
-            title="Valor"
-            value={valor}
-            palceHodler="Ingresa el valor de la lectura"
-            onChange={(text) => {
-               setValor(text);
-               if (errors.valor) setErrors({ ...errors, valor: undefined });
-            }}
-            error={errors.valor}
-         />
-         <CameraModule
-            setPhoto={setCapture}
-            visible={camera}
-            setVisible={setCamera}
-         />
+         {!loading && error && (
+            <View style={styles.centered}>
+               <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
+            </View>
+         )}
 
-         <ButtonComponent
-            text="Registrar lectura"
-            loading={loadiong}
-            onPress={handleCreateLectura}
-         />
-         <ModalConfirm
-            title={error ? "Error" : "Éxito"}
-            message={error ? error : "La lectura fue registrada de manera correcta."}
-            action={() => setOnModal(false)}
-            visible={onModal}
-         />
+         {!loading && !error && asignaciones.length === 0 && (
+            <View style={styles.centered}>
+               <Text style={[styles.emptyText, { color: colors.muted }]}>
+                  No tienes asignaciones pendientes.
+               </Text>
+            </View>
+         )}
+
+         {!loading && !error && asignaciones.length > 0 && (
+            <FlatList
+               data={asignaciones}
+               keyExtractor={(item) => item.contrato.id}
+               renderItem={({ item }) => (
+                  <AsignacionCard
+                     asignacion={item}
+                     onPress={(a) => setSelected(a)}
+                  />
+               )}
+               showsVerticalScrollIndicator={false}
+               contentContainerStyle={styles.list}
+            />
+         )}
       </DefaultScreen>
    );
 }
+
+const styles = StyleSheet.create({
+   centered: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 8,
+   },
+   loadingText: {
+      fontSize: 14,
+   },
+   errorText: {
+      fontSize: 14,
+      textAlign: "center",
+   },
+   emptyText: {
+      fontSize: 14,
+      textAlign: "center",
+   },
+   list: {
+      paddingBottom: 20,
+   },
+});
