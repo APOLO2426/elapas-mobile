@@ -10,7 +10,7 @@ export type User = {
     image: null,
     createdAt: string,
     updatedAt: string,
-    role: string,
+    role: "brigadista" | "admin" | string,
     estado: boolean,
     id: string
 }

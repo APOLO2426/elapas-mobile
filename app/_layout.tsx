@@ -3,15 +3,15 @@ import { useAuth } from '@/hooks/useAuth';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 
 export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary
+    // Catch any errors thrown by the Layout component.
+    ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {
@@ -54,6 +54,14 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { isAuthenticate } = useAuth()
   const colors = useThemeColor()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isAuthenticate) {
+      router.replace('/')
+    }
+  }, [isAuthenticate])
+
   return (
     <Stack>
       {
