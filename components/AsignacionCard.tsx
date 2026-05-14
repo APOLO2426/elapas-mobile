@@ -13,7 +13,7 @@ const AsignacionCard: FC<Props> = ({ asignacion, onPress }) => {
     const colors = useThemeColor();
 
     const estadoActivo = asignacion.contrato.estado === "ACTIVO";
-    const lecturaRealizada = asignacion.estadoLectura === "REALIZADA";
+    const lecturaRealizada = asignacion.estadoLectura === "leido";
 
     return (
         <TouchableOpacity

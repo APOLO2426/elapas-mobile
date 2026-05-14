@@ -11,4 +11,10 @@ export type Corte = {
     createAt: string
 }
 
-export type CorteCreate = Omit<Corte, "id" | "brigadistaId" | "fechaCorte" | "estado" | "createAt">
+export type CorteCreate = Omit<Corte, "id" | "brigadistaId" | "fechaCorte" | "estado" | "createAt" | "foto"> & {
+    foto: {
+        uri: string
+        name: string
+        type: string
+    } | null
+}

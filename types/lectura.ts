@@ -43,6 +43,6 @@ export type LecturaRuta = {
         contratoId: string
         createdAt: string
     }
-    estadoLectura: string
+    estadoLectura: "pendiente" | "leido"
     ultimaLectura: number
 }

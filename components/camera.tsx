@@ -17,7 +17,10 @@ export const CameraModule: FC<Props> = ({ setPhoto, visible, setVisible }) => {
     //fucniones 
     const takePicture = async () => {
         if (cameraRef.current) {
-            const photo = await cameraRef.current.takePictureAsync()
+            const photo = await cameraRef.current.takePictureAsync({
+                quality: 0.5,   // 50% de calidad JPEG — suficiente para evidencia, bien bajo de 5MB
+                scale: 0.6,     // reduce resolución al 60%
+            })
             setPhoto(photo)
             setVisible(false)
         }
