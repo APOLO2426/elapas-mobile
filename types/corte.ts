@@ -3,7 +3,7 @@ export type Corte = {
     contratoId: string,
     brigadistaId: string,
     motivo: string,
-    fotoUrl: string,
+    foto: string,
     latitud: string
     longitud: string
     fechaCorte: string
@@ -11,4 +11,10 @@ export type Corte = {
     createAt: string
 }
 
-export type CorteCreate = Omit<Corte, "id" | "brigadistaId" | "fechaCorte" | "estado" | "createAt">
+export type CorteCreate = Omit<Corte, "id" | "brigadistaId" | "fechaCorte" | "estado" | "createAt" | "foto"> & {
+    foto: {
+        uri: string
+        name: string
+        type: string
+    } | null
+}

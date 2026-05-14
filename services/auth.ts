@@ -1,9 +1,10 @@
+import { config } from "@/config/apis";
 import { UNAUTHORIZED, UNKWON } from "@/constants/APIErrors";
 import { Auth, ResponseAuth } from "@/types/auth";
 
 // http://localhost:3000/api/auth/sign-in/email
 export async function service_login(user_data: Auth) {
-    const response = await fetch('http://192.168.0.12:3000/api/auth/sign-in/email', {
+    const response = await fetch(`${config.apiUrl}/api/auth/sign-in/email`, {
         headers: {
             'Content-Type': 'application/json',
             'Origin': 'http://localhost:3000'
@@ -26,7 +27,7 @@ export async function service_login(user_data: Auth) {
 
 
 export async function service_logout() {
-    const request = await fetch('http://10.242.121.225:3000/api/auth/sign-out', {
+    const request = await fetch(`${config.apiUrl}/api/auth/sign-out`, {
         headers: {
             'Content-Type': 'application/json',
             'Origin': 'http://localhost:3000'

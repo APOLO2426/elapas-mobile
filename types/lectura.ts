@@ -3,7 +3,7 @@ export type Lectura = {
     contratoId: string
     brigadistaId: string
     valorLectura: number
-    fotoUrl: string
+    foto: any
     latitud: string
     longitud: string
     fechaLectura: string
@@ -13,4 +13,36 @@ export type Lectura = {
 export type LecturaCreate = Omit<Lectura, "id" | "brigadistaId" | "fechaLectura" | "createAt">
 
 
-
+export type LecturaRuta = {
+    contrato: {
+        id: string
+        nroContrato: string
+        usuarioId: string
+        predioId: string
+        medidorId: string
+        estado: string
+        createdAt: string
+        updatedAt: string
+    }
+    distrito: {
+        id: string
+        nombre: string
+        codigo: string
+    }
+    predio: {
+        id: string
+        distritoId: string
+        direccion: string
+        latitud: string
+        longitud: string
+        createdAt: string
+    }
+    medidor: {
+        id: string
+        nroMedidor: string
+        contratoId: string
+        createdAt: string
+    }
+    estadoLectura: "pendiente" | "leido"
+    ultimaLectura: number
+}

@@ -22,11 +22,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const login = async (data_auth: Auth) => {
         const data = await service_login(data_auth)
+        if (data.user.role !== "brigadista") {
+            throw new Error("Acceso denegado. Solo brigadistas pueden ingresar a esta aplicación.")
+        }
         setUser(data)
     }
 
     const logout = async () => {
-        await service_logout()
+        try {
+            await service_logout()
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setUser(null)
+        }
     }
 
     return (

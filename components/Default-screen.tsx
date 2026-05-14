@@ -18,7 +18,8 @@ const DefaultScreen = ({ children }: { children: ReactNode }) => {
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        paddingHorizontal: 14
+        paddingHorizontal: 14,
+        paddingVertical:14
     }
 })
 export default DefaultScreen
